@@ -1,0 +1,45 @@
+.login {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  background-image: url(../../../public/cool-background.png);
+  .login-box {
+    width: 32rem;
+    margin: 0 auto;
+    padding: 2rem 5rem;
+    border: 1px solid #ebebeb;
+    border-radius: 50px;
+    background: linear-gradient(145deg, #ffffff, #dddcdc);
+    box-shadow: 35px 35px 70px #949292, -35px -35px 70px #ffffff;
+    .login-title {
+      height: 2.0625rem;
+      font-size: 1.95rem;
+      font-weight: 600;
+      color: rgba(0, 0, 0, 0.85);
+      line-height: 2.0625rem;
+      margin-bottom: 1.125rem;
+      text-align: center;
+    }
+    .login-tooltip {
+      height: 22px;
+      font-size: 14px;
+      font-weight: 400;
+      color: rgba(0, 0, 0, 0.45);
+      line-height: 22px;
+      margin-bottom: 32px;
+      text-align: center;
+    }
+  }
+}
+.footer {
+  position: fixed;
+  bottom: 0;
+  width: 100vw;
+  height: 2.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.75rem;
+  color: #666;
+}
