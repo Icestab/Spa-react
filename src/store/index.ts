@@ -1,4 +1,4 @@
 export default function State() {
-     const token=localStorage.getItem('token')
-     return token 
+  const token = sessionStorage.getItem('token')
+  return token
 }

@@ -4,7 +4,6 @@ import { UserOutlined, LockOutlined } from '@ant-design/icons'
 import './index.scss'
 import http from '../../config'
 import { message } from 'antd'
-
 export default function Index() {
   const [loading, setLoading] = useState<boolean>(false)
   const onFinish = (values: any) => {

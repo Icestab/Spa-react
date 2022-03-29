@@ -1,0 +1,41 @@
+.trigger {
+  padding: 0 24px;
+  font-size: 18px;
+  line-height: 64px;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.trigger:hover {
+  color: #1890ff;
+}
+
+.logo {
+  height: 25px;
+  margin: 16px;
+  background: rgba(143, 141, 141, 0.527);
+  font-size: 14px;
+  font-weight: 400;
+  color: rgba(0, 0, 0, 0.9);
+  line-height: 22px;
+  margin-bottom: 32px;
+  text-align: center;
+  border-radius: 10px;
+}
+
+.site-layout .site-layout-background {
+  background: #fff;
+}
+
+.site-layout {
+  min-height: 100vh;
+}
+
+.top-nav {
+  float: right;
+  margin: 0 1.25rem
+}
+
+.top-name {
+  padding: 0 2px;
+}
