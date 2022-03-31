@@ -9,7 +9,6 @@ export default function MyRouter() {
     <HashRouter>
       <Routes>
         <Route path='/' element={<Index />}>
-          <Route path='chart' element={<Chart />} />
           <Route path='user' element={<User />} />
           <Route path='setting' element={<Setting />} />
           <Route index element={<Chart />} />

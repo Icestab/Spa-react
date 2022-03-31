@@ -1,44 +1,81 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import http from '../../config'
 import 'moment/locale/zh-cn'
 import moment from 'moment'
-import { Avatar, Layout, Menu } from 'antd'
+import { Dropdown, Layout, Menu } from 'antd'
 import {
   MenuUnfoldOutlined,
   MenuFoldOutlined,
   HomeOutlined,
-  UsergroupDeleteOutlined,
+  AppstoreOutlined,
   SettingOutlined,
-  UserOutlined
+  UserOutlined,
+  LogoutOutlined,
+  UserSwitchOutlined
 } from '@ant-design/icons'
 import './index.scss'
-import { Link, Outlet } from 'react-router-dom'
+import { Link, Outlet, useNavigate, useLocation } from 'react-router-dom'
 const { Header, Sider, Content, Footer } = Layout
+const { SubMenu } = Menu
 moment.locale('zh-cn')
+
 export default function Home() {
-  const [collapsed, setCollapsed] = React.useState(false)
+  const [menuKey, setMenuKey] = useState('/')
+  const navigate = useNavigate()
+  const pathArr = useLocation().pathname
   useEffect(() => {
-    http
-      .get('/user/1')
-      .then((res) => {
-        console.log(res)
-      })
-      .catch((err) => {
-        console.log(err.data.msg)
-      })
-  }, [])
+    setMenuKey(pathArr)
+  }, [pathArr])
+  function Logout() {
+    sessionStorage.removeItem('token')
+    navigate('/login', { replace: true })
+  }
+  function handleClick(e: any) {
+    setMenuKey(e.key)
+  }
+  const menu = (
+    <Menu>
+      <Menu.Item
+        onClick={() => {
+          navigate('setting')
+          setMenuKey('/setting')
+        }}
+        key={'userSetting'}
+        icon={<SettingOutlined />}
+      >
+        个人设置
+      </Menu.Item>
+      <Menu.Divider />
+      <Menu.Item onClick={Logout} key={'logout'} icon={<LogoutOutlined />}>
+        退出登录
+      </Menu.Item>
+    </Menu>
+  )
+  const [collapsed, setCollapsed] = React.useState(false)
+
   return (
     <Layout>
       <Sider trigger={null} collapsible collapsed={collapsed}>
         <div className='logo'>电子化管理顾客水疗信息</div>
-        <Menu theme='dark' mode='inline' defaultSelectedKeys={['chart']}>
-          <Menu.Item key='chart' icon={<HomeOutlined />}>
-            <Link to='/chart'>首页</Link>
+        <Menu
+          theme='dark'
+          mode='inline'
+          defaultSelectedKeys={['/']}
+          selectedKeys={[menuKey]}
+          onClick={handleClick}
+        >
+          <Menu.Item key='/' icon={<HomeOutlined />}>
+            <Link to='/'>首页</Link>
           </Menu.Item>
-          <Menu.Item key='2' icon={<UsergroupDeleteOutlined />}>
-            <Link to='/user'>用户信息</Link>
-          </Menu.Item>
-          <Menu.Item key='3' icon={<SettingOutlined />}>
+          <SubMenu key='/user' icon={<AppstoreOutlined />} title='客户管理'>
+            <Menu.Item key='/userlist' icon={<UserOutlined />}>
+              <Link to='/user'>客户信息</Link>
+            </Menu.Item>
+            <Menu.Item key='/useredit' icon={<UserSwitchOutlined />}>
+              <Link to='/user'>客户管理</Link>
+            </Menu.Item>
+          </SubMenu>
+          <Menu.Item key='/setting' icon={<SettingOutlined />}>
             <Link to='/setting'>设置</Link>
           </Menu.Item>
         </Menu>
@@ -49,10 +86,12 @@ export default function Home() {
             className: 'trigger',
             onClick: () => setCollapsed(!collapsed)
           })}
-          <div className='top-nav'>
-            <Avatar style={{ backgroundColor: '#87d068' }} icon={<UserOutlined />} />
-            <span className='top-name'>管理员</span>
-          </div>
+          <Dropdown overlay={menu}>
+            <div className='top-nav'>
+              <UserOutlined />
+              <span className='top-name'>管理员</span>
+            </div>
+          </Dropdown>
         </Header>
         <Content
           className='site-layout-background'
