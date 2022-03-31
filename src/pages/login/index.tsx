@@ -13,7 +13,7 @@ export default function Index() {
       .then((res) => {
         if (res.data.code === 0) {
           message.success('登录成功')
-          localStorage.setItem('token', res.data.data.token)
+          sessionStorage.setItem('token', res.data.data.token)
           window.location.hash = '/'
         } else {
           message.error(res.data.msg)
